@@ -139,7 +139,7 @@ end tell`
 const toolDefs = [
   {
     name: 'calendar_list',
-    description: 'List the names of all calendars in the macOS Calendar app (e.g. Home, Family, Work, nicecx@gmail.com). Read-only. Use before calendar_add to pick the right calendar name.',
+    description: 'List the names of all calendars in the macOS Calendar app (e.g. Home, Family, Work). Read-only. Use before calendar_add to pick the right calendar name.',
     parameters: {
       type: 'object',
       properties: {},
