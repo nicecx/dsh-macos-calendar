@@ -51,7 +51,7 @@ async function runAppleScript(script) {
     const { stdout } = await execFileAsync('osascript', ['-e', script], { timeout: 30000 })
     return stdout.trim()
   } catch (err) {
-    const detail = (err.stderr || err.message || String(err)).trim().slice(0, 300)
+    const detail = (err.stderr || err.message || String(err)).trim().slice(0, 800)
     throw new Error(`osascript failed: ${detail}`)
   }
 }
