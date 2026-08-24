@@ -107,6 +107,35 @@ end tell`
   return out === '' ? '(该时间范围内无事件)' : out
 }
 
+async function deleteEvents(args) {
+  const { title, calendar = '', from } = args
+  if (!title) throw new Error('title 必填（按标题匹配删除，请谨慎）')
+  const fromScript = from
+    ? (() => {
+        const f = parseDt(from)
+        if (!f) throw new Error(`from 格式应为 YYYY-MM-DD HH:MM，收到: ${from}`)
+        return `set fd to current date
+  set year of fd to ${f.y}
+  set month of fd to ${f.m}
+  set day of fd to ${f.d}
+  set hours of fd to ${f.h}
+  set minutes of fd to ${f.min}
+  set seconds of fd to 0`
+      })()
+    : ''
+  const filter = from ? ` whose summary contains "${esc(title)}" and start date ≥ fd` : ` whose summary contains "${esc(title)}"`
+  const script = `tell application "Calendar"
+  set targetCal to ${calExpr(calendar)}
+  ${fromScript}
+  set es to every event of targetCal${filter}
+  repeat with e in es
+    delete e
+  end repeat
+  return "deleted " & (count of es)
+end tell`
+  return runAppleScript(script)
+}
+
 const toolDefs = [
   {
     name: 'calendar_list',
@@ -142,6 +171,25 @@ const toolDefs = [
     async execute(args) {
       const out = await addEvent(args)
       return `已创建日历事件: ${out}`
+    },
+  },
+  {
+    name: 'calendar_delete',
+    description: 'Delete events in the macOS Calendar app whose summary contains the given title. Args: title (required), calendar (optional name; default first calendar), from (optional "YYYY-MM-DD HH:MM", only delete events starting at or after this time — always pass from when possible to avoid deleting old events). Returns the number deleted.',
+    parameters: {
+      type: 'object',
+      properties: {
+        title: { type: 'string', description: 'Title substring to match, e.g. DSH插件测试' },
+        calendar: { type: 'string', description: 'Calendar name (optional; default first calendar)' },
+        from: { type: 'string', description: 'Only delete events starting at/after this time, format YYYY-MM-DD HH:MM (recommended)' },
+      },
+      required: ['title'],
+      additionalProperties: false,
+    },
+    output: { schema: { type: 'string' }, render: (_a, v) => [{ type: 'text', text: v }] },
+    async execute(args) {
+      const out = await deleteEvents(args)
+      return `删除结果: ${out}`
     },
   },
   {
