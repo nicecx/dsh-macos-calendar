@@ -230,3 +230,6 @@ export function apply(ctx) {
 // whether it reads the module namespace or the apply function itself.
 export const inject = ['tools']
 apply.inject = ['tools']
+
+// 纯函数导出（供 node:test 单测；不影响插件运行）
+export { parseDt, esc, dateAssign }
