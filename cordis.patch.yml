@@ -1,0 +1,6 @@
+# dsh-macos-calendar bundle patch: 挂载日历工具插件（宿主级，跨会话共享）。
+# 工具: calendar_list / calendar_add / calendar_events。
+# 权限: 首次调用 osascript 时系统会弹「控制日历」授权，允许即可。
+- insert:
+    - id: dsh-macos-calendar
+      name: 'dsh-macos-calendar'
