@@ -12,3 +12,10 @@
 - Error reporting extends to 800 chars for diagnosability.
 - Public release on GitHub; `dsh-plugin` topic registered for the
   awesome-dsh-plugin directory.
+
+## 后续修复
+
+- 错误详情扩展至 800 字符（定位 osascript 失败原因）。
+- 新增 TROUBLESHOOTING.md（TCC 权限、常见错误、日期格式）。
+- 单元测试（node:test，零依赖）：parseDt / esc / dateAssign 与 AppleScript
+  日期分量块。
