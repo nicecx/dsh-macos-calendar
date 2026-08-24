@@ -53,3 +53,12 @@ as year 12194 in testing) — always construct dates via **date components**
 ## License
 
 MIT
+
+## Development
+
+```sh
+npm test            # unit tests (node:test, zero deps)
+```
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for permission and osascript
+failure diagnosis.

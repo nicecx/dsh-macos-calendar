@@ -49,3 +49,11 @@ of d to ...`），区域无关。
 ## License
 
 MIT
+
+## 开发
+
+```sh
+npm test            # 单元测试（node:test，零依赖）
+```
+
+权限与 osascript 故障诊断见 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)。
