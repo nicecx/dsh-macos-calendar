@@ -1,0 +1,21 @@
+{
+  "name": "dsh-macos-calendar",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.js",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/index.test.js",
+    "check": "node --test test/index.test.js"
+  }
+}
